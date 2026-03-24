@@ -1,21 +1,19 @@
 /**
  * PAINEL DE CHAMADAS - HOSPITAL VIVER+
- * Desenvolvido por: Thiago Gama Marçal
- * ---------------------------------------------------------
- * CONFIGURAÇÕES GERAIS (Altere aqui para o GitHub)
  */
+
 const CONFIG = {
-    API_URL: 'api.php', // Ocultamos o caminho real do servidor se necessário
+    API_URL: 'api.php', 
     CLIMA_URL: 'clima_moeda.php',
-    INTERVALO_BUSCA: 2500, // 2.5 segundos
-    INTERVALO_CLIMA: 1800000, // 30 minutos
+    INTERVALO_BUSCA: 2500, 
+    INTERVALO_CLIMA: 1800000, 
     VELOCIDADE_VOZ: 0.9,
     LIMITE_HISTORICO: 5
 };
 
 document.addEventListener('DOMContentLoaded', () => {
     
-    // VARIÁVEIS DE ESTADO
+    
     const MENSAGENS_RODAPE = [
         "Seja Bem-Vindo ao Pronto Socorro do Hospital Viver+.",
         "Horário de Visita: 14h às 16h.",
@@ -26,10 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let estaProcessandoFila = false;
     const filaDeChamadas = [];
     
-    // PERSISTÊNCIA: Tenta carregar o histórico salvo no navegador
+    
     let historicoMemoria = JSON.parse(localStorage.getItem('historico_painel')) || [];
 
-    // MAPEAMENTO DE ELEMENTOS
+    
     const el = {
         senha: document.getElementById('senha-atual'),
         local: document.getElementById('consultorio-atual'),
@@ -41,9 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         subFooter: document.getElementById('sub-footer')
     };
 
-    /**
-     * FORMATAÇÃO E UTILITÁRIOS
-     */
+    
     const formatarNome = (nome) => {
         if (!nome) return "";
         const partes = nome.trim().split(/\s+/);
@@ -51,9 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return `${partes[0]} ${partes[partes.length - 1]}`;
     };
 
-    /**
-     * SÍNTESE DE VOZ (Natural)
-     */
+    
     function anunciarVoz(dados) {
         let texto = dados.paciente 
             ? `Paciente, ${formatarNome(dados.paciente)}. Dirigir-se ao, ${dados.local}`
@@ -76,23 +70,19 @@ document.addEventListener('DOMContentLoaded', () => {
         window.speechSynthesis.speak(enunciado);
     }
 
-    /**
-     * ATUALIZAÇÃO DA INTERFACE (Com Efeito Flash)
-     */
+    
     function atualizarInterface(principal, anteriores) {
-        // Alerta Visual (Flash)
         if (el.container) {
             el.container.classList.remove('flash-active');
             void el.container.offsetWidth; 
             el.container.classList.add('flash-active');
         }
 
-        // Senha Principal
         el.senha.textContent = principal.paciente ? formatarNome(principal.paciente) : principal.senha;
         el.local.textContent = principal.local;
         el.container.className = `senha-container tipo-${principal.tipo} ${principal.prioridade ? 'prioritaria' : ''}`;
 
-        // Histórico de Chamadas
+        
         if (el.lista) {
             const itensParaExibir = anteriores.slice(0, 3);
             el.lista.innerHTML = itensParaExibir.map(h => {
@@ -110,9 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
         anunciarVoz(dados);
     }
 
-    /**
-     * BUSCA DE DADOS (API TASY)
-     */
+    /* BUSCA DE DADOS */
     async function buscarNovasChamadas() {
         try {
             const response = await fetch(`${CONFIG.API_URL}?nocache=${Date.now()}`);
@@ -124,14 +112,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const maisRecente = chamadasVindas[0];
 
             if (maisRecente.id !== ultimoIdProcessado) {
-                // Atualiza a memória local evitando duplicados
+                
                 chamadasVindas.slice().reverse().forEach(nova => {
                     if (!historicoMemoria.find(h => h.id === nova.id)) {
                         historicoMemoria.unshift(nova);
                     }
                 });
 
-                // Limita o histórico e salva no navegador (Persistência Meia-Noite)
+                
                 historicoMemoria = historicoMemoria.slice(0, CONFIG.LIMITE_HISTORICO);
                 localStorage.setItem('historico_painel', JSON.stringify(historicoMemoria));
 
@@ -146,9 +134,6 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (err) { console.error("Erro na integração:", err); }
     }
 
-    /**
-     * COTAÇÕES E CLIMA
-     */
     async function atualizarCotacoes() {
         try {
             const response = await fetch(`${CONFIG.CLIMA_URL}?nocache=${Date.now()}`);
@@ -169,9 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (e) { console.log("Erro no clima."); }
     }
 
-    /**
-     * INICIALIZAÇÃO (BOOT)
-     */
+
     function boot() {
         const tick = () => {
             const n = new Date();

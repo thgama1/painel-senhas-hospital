@@ -58,28 +58,20 @@
       color: #00796b;
       line-height: 1;
   } */
+   
   #hora {
       position: absolute;
       top: 2px;
       right: 2px;
-
-      /* O "Tchan" do acabamento */
       background: rgba(0, 121, 107, 0.05);
-      /* Um verde água quase invisível */
       border: 1px solid rgba(0, 121, 107, 0.15);
-      /* Uma bordinha bem fina e elegante */
       padding: 8px 20px;
       border-radius: 50px;
-      /* Formato de pílula */
-
-      /* Tipografia */
       font-size: 2.0rem;
-      /* Diminuí um tiquinho para não gritar na tela */
       font-weight: 1000;
       color: #00796b;
       line-height: 1;
 
-      /* Sombra bem leve para dar profundidade */
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
   }
 
@@ -90,13 +82,11 @@
 
   }
 
-  /* CAIXA DE SENHA */
   .senha-container {
       transition: all 0.3s ease;
       flex-shrink: 0;
       width: 100%;
       height: 540px;
-      /* REDUZIDO: de 420px para 380px para o letreiro aparecer */
       border-radius: 40px;
       display: flex;
       flex-direction: column;
@@ -126,7 +116,6 @@
       opacity: 0.9;
       font-weight: 500;
       margin-bottom: 10px;
-      /* Diminui o espaço entre o texto e o número */
       position: relative;
       top: -30px;
   }
@@ -146,7 +135,7 @@
       color: rgba(255, 255, 255, 0.95);
   }
 
-  /*HISTÓRICO DE CHAMADAS*/
+  
   .anteriores-container {
       flex-grow: 1;
       background: white;
@@ -239,7 +228,6 @@
   .ticker-moedas span {
       margin-right: 100px;
       opacity: 0.95;
-      /* Espaço entre as informações */
   }
 
   @keyframes scroll-moedas {
@@ -251,7 +239,7 @@
           transform: translateX(-50%);
       }
 
-      /* Move metade, já que duplicamos o texto no JS */
+     
   }
 
 
