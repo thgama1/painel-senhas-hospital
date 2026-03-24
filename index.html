@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Painel PS - Hospital Viver+</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="iniciar-painel" onclick="this.style.display='none'">
+        <!-- <div class="icon-audio">📢</div> -->
+        <h1>VIVER MAIS HOSPITAL</h1>
+        <p>Clique aqui para iniciar</p>
+    </div>
+    <div class="container">
+        <header>
+            <img src="img/logo.png" alt="Logo" class="logo">
+            <div id="relogio-container">
+                <span id="data"></span>
+                <span id="hora"></span>
+            </div>
+        </header>
+
+        <main>
+            <div id="senha-principal-container" class="senha-container">
+                <span class="titulo">SENHA</span>
+                <div id="senha-atual" class="senha">--</div>
+                <div id="consultorio-atual" class="consultorio">Aguardando...</div>
+            </div>
+
+            <div class="anteriores-container">
+                <h2>Chamadas Anteriores</h2>
+                <ul id="lista-anteriores"></ul>
+            </div>
+        </main>
+        <footer>
+            <div class="ticker-wrap">
+                <div id="ticker-messages" class="ticker"></div>
+            </div>
+            <div id="sub-footer">
+                <span>Dólar: R$ --</span> • <span>Euro: R$ --</span> • <span>Volta Redonda: --°C</span>
+            </div>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

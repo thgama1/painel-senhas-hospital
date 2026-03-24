@@ -1,0 +1,10 @@
+api.php
+config.php
+*.env
+
+/nbproject/
+/logs/
+*.log
+
+.DS_Store
+Thumbs.db
